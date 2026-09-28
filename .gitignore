@@ -1,0 +1,7 @@
+/storage/uploads/*
+/storage/documents/*
+/storage/backups/*
+/storage/logs/*
+!.gitkeep
+.env
+*.log
