@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS journal_activites (
 ) ENGINE=InnoDB;
 
 INSERT INTO users(username,password_hash,role,nom_complet)
-SELECT 'admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3wHn6jLJfQZ2d5dJ4n2dXzZ2K', 'ADMIN', 'Administrateur'
+SELECT 'admin', '$2y$12$KgnkdlXbO3HdlZV2ECMhreYUXQ8g6KHuNTqlgKVVKjZ.7L2E1..hW', 'ADMIN', 'Administrateur'
 WHERE NOT EXISTS (SELECT 1 FROM users WHERE username='admin');
 
 INSERT INTO etablissements(nom) SELECT 'Mon établissement scolaire' WHERE NOT EXISTS (SELECT 1 FROM etablissements LIMIT 1);
