@@ -1,0 +1,37 @@
+{
+  "name": "ecole-app-1-desktop",
+  "version": "2.0.0",
+  "description": "Ecole-App-1 - Gestion scolaire Windows",
+  "main": "main.js",
+  "author": "Ecole-App-1",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis"
+  },
+  "dependencies": {
+    "bcryptjs": "3.0.2",
+    "sql.js": "1.13.0"
+  },
+  "devDependencies": {
+    "electron": "38.2.2",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "cd.ecole.ecoleapp1",
+    "productName": "Ecole-App-1",
+    "directories": { "output": "dist" },
+    "files": ["**/*", "!dist/**/*"],
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "artifactName": "Ecole-App-1-Setup.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
