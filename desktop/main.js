@@ -133,7 +133,10 @@ const TABLES={
  evaluations:{title:'Évaluations',table:'evaluations',fields:[['name','Évaluation'],['type','Type'],['subject_id','Matière'],['class_id','Classe'],['period_id','Période'],['date','Date'],['max_score','Maximum'],['coefficient','Coefficient']]},
  grades:{title:'Notes',table:'grades',fields:[['student_id','Élève'],['evaluation_id','Évaluation'],['score','Note'],['appreciation','Appréciation']]},
  schedules:{title:'Horaires',table:'schedules',fields:[['class_id','Classe'],['teacher_id','Enseignant'],['subject_id','Matière'],['room_id','Salle'],['day','Jour'],['start_time','Début'],['end_time','Fin']]},
- assignments:{title:'Affectations',table:'assignments',fields:[['teacher_id','Enseignant'],['subject_id','Matière'],['class_id','Classe'],['year_id','Année'],['status','Statut']]}
+ assignments:{title:'Affectations',table:'assignments',fields:[['teacher_id','Enseignant'],['subject_id','Matière'],['class_id','Classe'],['year_id','Année'],['status','Statut']]},
+enrollments:{title:'Inscriptions',table:'enrollments',fields:[['student_id','Élève'],['year_id','Année'],['class_id','Classe'],['enroll_date','Date inscription'],['status','Statut'],['old_school','Ancien établissement'],['file_number','N° dossier'],['observation','Observation']]},
+student_fees:{title:'Frais attribués',table:'student_fees',fields:[['student_id','Élève'],['fee_type_id','Frais'],['amount_due','Montant dû'],['discount','Réduction'],['due_date','Échéance'],['status','Statut']]},
+documents:{title:'Documents',table:'documents',fields:[['student_id','Élève'],['type','Type'],['title','Titre'],['file_path','Fichier']]}
 };
 
 function listTable(table, search='') {
@@ -180,7 +183,9 @@ ipcMain.handle('data:update',(_,d)=>{
 });
 ipcMain.handle('data:delete',(_,d)=>{
   const cfg=TABLES[d.table]; if(!cfg) throw new Error('Table interdite');
-  run('UPDATE '+cfg.table+' SET status="ARCHIVED" WHERE id=?',[d.id]); return {ok:true};
+  const hasStatus=cfg.fields.some(x=>x[0]==='status');
+  if(hasStatus) run('UPDATE '+cfg.table+' SET status="ARCHIVED" WHERE id=?',[d.id]); else run('DELETE FROM '+cfg.table+' WHERE id=?',[d.id]);
+  return {ok:true};
 });
 ipcMain.handle('users:list',()=>q('SELECT id,username,role,status,must_change_code,created_at FROM users ORDER BY id DESC'));
 ipcMain.handle('users:create',(_,d)=>{
