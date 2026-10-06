@@ -1,7 +1,7 @@
 {
   "name": "ecole-app-1-desktop",
-  "version": "2.0.0",
-  "description": "Ecole-App-1 - Gestion scolaire Windows",
+  "version": "3.0.0",
+  "description": "Ecole-App-1 - Gestion scolaire intégrée Windows, SQLite offline-first",
   "main": "main.js",
   "author": "Ecole-App-1",
   "license": "MIT",
@@ -20,10 +20,22 @@
   "build": {
     "appId": "cd.ecole.ecoleapp1",
     "productName": "Ecole-App-1",
-    "directories": { "output": "dist" },
-    "files": ["**/*", "!dist/**/*"],
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!dist/**/*"
+    ],
     "win": {
-      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
       "artifactName": "Ecole-App-1-Setup.exe"
     },
     "nsis": {
@@ -32,6 +44,11 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
-    }
+    },
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/sql.js/dist/sql-wasm.wasm"
+    ],
+    "artifactName": "Ecole-App-1-Setup.exe"
   }
 }
