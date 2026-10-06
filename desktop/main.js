@@ -34,7 +34,7 @@ function one(sql, params=[]) { return q(sql,params)[0] || null; }
 function save() { fs.writeFileSync(DB_PATH, Buffer.from(db.export())); }
 function run(sql, params=[]) { const st=db.prepare(sql); st.bind(params); st.step(); st.free(); save(); }
 
-const schema = \`
+const schema = `
 PRAGMA foreign_keys=ON;
 CREATE TABLE IF NOT EXISTS settings(id INTEGER PRIMARY KEY CHECK(id=1),school_name TEXT,logo TEXT,address TEXT,phone TEXT,email TEXT,website TEXT,currency TEXT DEFAULT 'USD',slogan TEXT,active_year_id INTEGER);
 CREATE TABLE IF NOT EXISTS academic_years(id INTEGER PRIMARY KEY AUTOINCREMENT,label TEXT UNIQUE NOT NULL,status TEXT DEFAULT 'OPEN',created_at TEXT DEFAULT CURRENT_TIMESTAMP);
