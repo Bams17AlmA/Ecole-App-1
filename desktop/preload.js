@@ -1,14 +1,20 @@
 const { contextBridge, ipcRenderer } = require('electron');
-contextBridge.exposeInMainWorld('api', {
-  login: data => ipcRenderer.invoke('auth:login', data),
-  changeCode: data => ipcRenderer.invoke('auth:changeCode', data),
-  list: table => ipcRenderer.invoke('data:list', table),
-  add: data => ipcRenderer.invoke('data:add', data),
-  remove: data => ipcRenderer.invoke('data:delete', data),
-  createUser: data => ipcRenderer.invoke('users:create', data),
-  setUserStatus: data => ipcRenderer.invoke('users:setStatus', data),
-  resetCode: data => ipcRenderer.invoke('users:resetCode', data),
-  backup: () => ipcRenderer.invoke('backup:create'),
-  restore: () => ipcRenderer.invoke('backup:restore'),
-  info: () => ipcRenderer.invoke('app:info')
+contextBridge.exposeInMainWorld('api',{
+ login:data=>ipcRenderer.invoke('auth:login',data),
+ changeCode:data=>ipcRenderer.invoke('auth:changeCode',data),
+ list:data=>ipcRenderer.invoke('data:list',data),
+ options:table=>ipcRenderer.invoke('data:options',table),
+ add:data=>ipcRenderer.invoke('data:add',data),
+ update:data=>ipcRenderer.invoke('data:update',data),
+ remove:data=>ipcRenderer.invoke('data:delete',data),
+ users:()=>ipcRenderer.invoke('users:list'),
+ createUser:data=>ipcRenderer.invoke('users:create',data),
+ userStatus:data=>ipcRenderer.invoke('users:status',data),
+ resetUser:data=>ipcRenderer.invoke('users:reset',data),
+ dashboard:()=>ipcRenderer.invoke('dashboard'),
+ backup:()=>ipcRenderer.invoke('backup:create'),
+ restore:()=>ipcRenderer.invoke('backup:restore'),
+ exportCsv:data=>ipcRenderer.invoke('export:csv',data),
+ print:html=>ipcRenderer.invoke('print:html',html),
+ info:()=>ipcRenderer.invoke('app:info')
 });
